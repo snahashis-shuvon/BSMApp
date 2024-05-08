@@ -6,19 +6,19 @@ import {MatSort, MatSortModule} from '@angular/material/sort';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-
+import {MatIconModule} from '@angular/material/icon';
 
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [CommonModule, NgFor, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule],
+  imports: [CommonModule, NgFor, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
 export class HomePageComponent implements AfterViewInit {
   Books: IBook[] = [];
-  displayedColumns: string[] = ['Name', 'InStockAmount', 'Price', 'Image'];
+  displayedColumns: string[] = ['Name', 'InStockAmount', 'Price', 'Image', 'actions'];
   dataSource: MatTableDataSource<IBook>;
 
   @ViewChild(MatPaginator)
@@ -33,7 +33,7 @@ export class HomePageComponent implements AfterViewInit {
         Name: `Book ${i}`,
         InStockAmount: this.getRandomNumber(1, 100),
         Price: this.getRandomNumber(10, 1000),
-        Image: `https://source.unsplash.com/random/?book&${i}` // Example image URL
+        Image: `https://source.unsplash.com/random/?book&${i}`
       };
       this.Books.push(book);
     }
