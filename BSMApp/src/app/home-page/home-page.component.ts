@@ -14,7 +14,8 @@ import { DataService } from '../data.service';
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [CommonModule, NgFor, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, RouterModule],
+  imports: [CommonModule, NgFor, MatFormFieldModule, MatInputModule, MatTableModule, 
+    MatSortModule, MatPaginatorModule, MatIconModule, RouterModule],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
@@ -29,20 +30,8 @@ export class HomePageComponent implements AfterViewInit {
   sort!: MatSort;
 
   constructor(private dataService: DataService) {
-    // Generate 1000 dummy records for the Books array
-    for (let i = 1; i <= 1000; i++) {
-      const book: IBook = {
-        Id: i,
-        Name: `Book ${i}`,
-        InStockAmount: this.getRandomNumber(1, 100),
-        Price: this.getRandomNumber(10, 1000),
-        Image: `https://source.unsplash.com/random/?book&${i}`
-      };
-      this.Books.push(book);
-    }
-    this.dataSource = new MatTableDataSource(this.Books);
-
-    this.dataService.setBooks(this.Books);
+    
+    this.dataSource = new MatTableDataSource(this.dataService.getBooks());  
 
   }
 
@@ -60,15 +49,13 @@ export class HomePageComponent implements AfterViewInit {
     }
   }
 
-  private getRandomNumber(min: number, max: number): number {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
   handleEditIconClick(id: number) {
     console.log('Button clicked with id:', id);
   }
 
   handleDeleteIconClick(id: number) {
     console.log('Button clicked with id:', id);
+    this.dataService.removeABook(id);
+    this.dataSource = new MatTableDataSource(this.dataService.getBooks());
   }
 }

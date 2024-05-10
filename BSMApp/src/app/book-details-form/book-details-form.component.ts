@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IBook } from '../Models/IBook';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Route, Router, RouterModule } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { DataService } from '../data.service';
 import { Observable } from 'rxjs';
@@ -19,7 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'app-book-details-form',
   standalone: true,
   imports: [ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule,
-    MatSelectModule, MatButtonModule, MatDividerModule, MatIconModule],
+    MatSelectModule, MatButtonModule, MatDividerModule, MatIconModule, RouterModule],
   templateUrl: './book-details-form.component.html',
   styleUrl: './book-details-form.component.css'
 })
@@ -27,7 +27,8 @@ export class BookDetailsFormComponent implements OnInit {
   bookForm!: FormGroup;
   selectedId = 0;
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private dataService: DataService) { }
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private dataService: DataService, 
+    private router: Router) { }
 
   ngOnInit() {
     this.bookForm = this.formBuilder.group({
@@ -62,6 +63,15 @@ export class BookDetailsFormComponent implements OnInit {
       const formData: IBook = this.bookForm.value;
       console.log('Form submitted:', formData);
       // Perform further actions, such as sending data to backend
+      const id = this.route.snapshot.paramMap.get('id?')!;
+      if(id === null) {
+      this.dataService.addABook(formData);
+      } else {
+        formData.Id = parseInt(id);
+        this.dataService.editABook(formData);
+      }
+
+      this.router.navigate(['/Home-Page']);
     } else {
       // Form is invalid
       console.log('Form is invalid');

@@ -5,5 +5,6 @@ import { HomePageComponent } from './home-page/home-page.component';
 export const routes: Routes = [
     {path: '', component: HomePageComponent},
     {path: 'Home-Page', component: HomePageComponent},
+    {path: 'Book-Details-Form', component: BookDetailsFormComponent},
     {path: 'Book-Details-Form/:id?', component: BookDetailsFormComponent}
 ];
