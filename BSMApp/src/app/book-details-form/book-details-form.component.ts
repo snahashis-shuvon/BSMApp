@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IBook } from '../Models/IBook';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Route, Router, RouterModule } from '@angular/router';
@@ -50,7 +50,7 @@ export class BookDetailsFormComponent implements OnInit {
       };
       this.bookForm.patchValue(bookModel);
     } else {
-      const book = this.dataService.getBookById(parseInt(id) - 1);
+      const book = this.dataService.getBookById(parseInt(id));
 
       this.bookForm.patchValue(book);
     }

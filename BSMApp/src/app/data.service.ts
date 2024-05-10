@@ -10,10 +10,10 @@ export class DataService {
 
   constructor(){
     // Generate 1000 dummy records for the Books array
-    for (let i = 1; i <= 1000; i++) {
+    for (let i = 0; i < 1000; i++) {
       const book: IBook = {
         Id: i,
-        Name: `Book ${i}`,
+        Name: `Book ${i+1}`,
         InStockAmount: this.getRandomNumber(1, 100),
         Price: this.getRandomNumber(10, 1000),
         Image: `https://source.unsplash.com/random/?a-book-cover&${i}`
@@ -35,14 +35,23 @@ export class DataService {
   }
 
   addABook(book: IBook) {
+    book.Id = this.books.length;
     this.books.push(book);
   }
 
   editABook(book: IBook) {
-    this.books[book.Id-1] = book;
+    this.books[book.Id] = book;
   }
 
   removeABook(id: number) {
-    this.books.splice(id-1, 1);
+    this.books.splice(id, 1);
+  }
+
+  getUpdatedBookIds () {
+    for(let i = 0; i < this.books.length; i++) {
+      this.books[i].Id = i;
+    }
+
+    return this.books;
   }
 }

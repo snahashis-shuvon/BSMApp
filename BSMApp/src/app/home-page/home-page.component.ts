@@ -56,6 +56,9 @@ export class HomePageComponent implements AfterViewInit {
   handleDeleteIconClick(id: number) {
     console.log('Button clicked with id:', id);
     this.dataService.removeABook(id);
-    this.dataSource = new MatTableDataSource(this.dataService.getBooks());
+    this.dataSource = new MatTableDataSource(this.dataService.getUpdatedBookIds());
+
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 }
