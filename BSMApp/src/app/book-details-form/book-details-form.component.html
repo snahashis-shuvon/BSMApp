@@ -23,7 +23,7 @@
         <div>
           <mat-form-field>
             <mat-label for="Image">Image</mat-label>
-            <input matInput type="text" id="Image" formControlName="Image">
+            <input matInput type="text" id="Image" formControlName="Image" [readonly]="isEditMode">
           </mat-form-field>
         </div>
         <button type="submit" mat-flat-button color="primary" [disabled]="!bookForm.valid">Submit</button>

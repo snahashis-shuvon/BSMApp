@@ -26,6 +26,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class BookDetailsFormComponent implements OnInit {
   bookForm!: FormGroup;
   selectedId = 0;
+  isEditMode = false;
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private dataService: DataService, 
     private router: Router) { }
@@ -42,6 +43,7 @@ export class BookDetailsFormComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id?')!;
 
     if (id === null) {
+      this.isEditMode = false;
       const bookModel = {
         Name: '',
         InStockAmount: 0,
@@ -51,7 +53,7 @@ export class BookDetailsFormComponent implements OnInit {
       this.bookForm.patchValue(bookModel);
     } else {
       const book = this.dataService.getBookById(parseInt(id));
-
+      this.isEditMode = true;
       this.bookForm.patchValue(book);
     }
 
