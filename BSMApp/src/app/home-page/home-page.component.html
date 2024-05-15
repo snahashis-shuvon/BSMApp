@@ -51,10 +51,18 @@
         </ng-container>
 
         <!-- Fruit Column -->
-        <ng-container matColumnDef="Image">
+        <!-- <ng-container matColumnDef="Image">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Image </th>
           <td mat-cell *matCellDef="let row"> {{row.Image}} </td>
+        </ng-container> -->
+
+        <ng-container matColumnDef="Image">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Image </th>
+          <td mat-cell *matCellDef="let row">
+            <img [src]="row.Image" alt="Image">
+          </td>
         </ng-container>
+        
 
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef>Options</th>
